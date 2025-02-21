@@ -16,7 +16,6 @@ const removeLastContact = () => {
 
     const updatedContacts = contacts.slice(0, contacts.length - 1);
     writeContacts(updatedContacts);
-
     console.log('The last contact has been deleted.');
   } catch (error) {
     console.error(

@@ -1,21 +1,22 @@
 import { readContacts } from '../utils/readContacts.js';
 import { writeContacts } from '../utils/writeContacts.js';
 
-const removeLastContact = () => {
+const removeLastContact = async () => {
   try {
-    const contacts = readContacts();
+    const contacts = await readContacts();
 
     if (!Array.isArray(contacts)) {
-      throw new Error('The data from the file is not an array!');
+      throw new Error('Invalid data format: expected an array.');
     }
 
     if (contacts.length === 0) {
-      console.log('There are no contacts to delete.');
+      console.log('No contacts to remove.');
       return;
     }
 
-    const updatedContacts = contacts.slice(0, contacts.length - 1);
-    writeContacts(updatedContacts);
+    const updatedContacts = contacts.slice(0, -1);
+    await writeContacts(updatedContacts);
+
     console.log('The last contact has been deleted.');
   } catch (error) {
     console.error(
